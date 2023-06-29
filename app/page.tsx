@@ -1,9 +1,14 @@
+"use client"
 import Image from 'next/image'
 import { Hero } from './components'
 import SearchBar from '@/app/components/SearchBar'
 import CustomFilter from '@/app/components/CustomFilter'
+import { fetchCars } from '@/utils'
 
-export default function Home() {
+export default async function Home() {
+  const allcars=await fetchCars()
+const isDataEmpty=!Array.isArray(allcars)|| allcars.length<1||!allcars;
+  // console.log(allcars)
   return (
     <main className="overflow-hidden">
    <Hero/>
@@ -24,6 +29,18 @@ export default function Home() {
 
       </div>
     </div>
+   {
+    !isDataEmpty?(
+      <section>
+        WE HAVE CARS
+      </section>
+    ):(
+      <div>
+        <h2>Oops , no result</h2>
+      <p>{allcars?.message}</p>
+      </div>
+    )
+   }
    </div>
     </main>
   )
