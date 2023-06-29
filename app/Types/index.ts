@@ -8,3 +8,7 @@ export interface customButtonProps{
     
 
 }
+export interface SearchMenufactureProps{
+    menufature: string;
+    setmenufature: (menufature:string)=>void;
+}
