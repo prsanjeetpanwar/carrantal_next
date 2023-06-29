@@ -4,9 +4,10 @@ import { Hero } from './components'
 import SearchBar from '@/app/components/SearchBar'
 import CustomFilter from '@/app/components/CustomFilter'
 import { fetchCars } from '@/utils'
+import CarCard from './components/CarCard'
 
 export default async function Home() {
-  const allcars=await fetchCars()
+  const allcars= await fetchCars()
 const isDataEmpty=!Array.isArray(allcars)|| allcars.length<1||!allcars;
   // console.log(allcars)
   return (
@@ -32,11 +33,14 @@ const isDataEmpty=!Array.isArray(allcars)|| allcars.length<1||!allcars;
    {
     !isDataEmpty?(
       <section>
-        WE HAVE CARS
+ <div className='home__cars-wrapper'>
+  {allcars?.map((car)=>(<CarCard car={car}/>))}
+ </div>
       </section>
     ):(
-      <div>
-        <h2>Oops , no result</h2>
+      <div className='home__error-container'>
+        <h2 className='text-black text-xl 
+        font-bold'>Oops , no result</h2>
       <p>{allcars?.message}</p>
       </div>
     )
